@@ -15,8 +15,10 @@ class Types::MutationType < Types::BaseObject
   end
 
   def update_user(user:)
-  # TODO Assignment: move to class UserServices::Update /app/services/user_services/update.rb and add test coverage
-  User.where(id: user[:id]).first&.update(user.to_h.without(:id))
+    # TODO Assignment: move update action to class UserServices::Update /app/services/user_services/update.rb and add test coverage
+    user_record = User.find_by(id: user[:id])
+    return unless user_record
+    UserServices::Update.new(user_record).update(user.to_h)
   end
 
   field :delete_user, Boolean, null: false, description: "Delete a user" do

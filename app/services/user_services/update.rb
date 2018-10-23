@@ -7,7 +7,9 @@ module UserServices
       @user = user
     end
 
-    # Write unit tests for this class in /spec/services/user_services/update_spec.rb (preferably TDD style)
+    def update(params)
+      user.update(params.without(:id))
+    end
 
   end
 end
