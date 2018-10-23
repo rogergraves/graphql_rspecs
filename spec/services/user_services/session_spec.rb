@@ -32,10 +32,16 @@ describe UserServices::Session do
     end
 
     describe '#logout' do
+      let!(:session) { FactoryBot.create(:session, user: user) }
 
-      it 'destroys all sessions for the user'
+      it 'destroys all sessions for the user' do
+        expect(user.sessions.count).to eq(1)
+        expect{service.logout}.to change{Session.count}.by(-1)
+      end
 
-      it 'returns true'
+      it 'returns true' do
+        expect(service.logout).to eq(true)
+      end
 
     end
 

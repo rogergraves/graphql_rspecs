@@ -12,5 +12,10 @@ module UserServices
       user.sessions.create.key
     end
 
+    def logout
+      user.sessions.destroy_all
+      true
+    end
+
   end
 end

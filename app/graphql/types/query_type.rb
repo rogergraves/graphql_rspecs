@@ -40,8 +40,9 @@ class Types::QueryType < Types::BaseObject
 
   def logout
     # TODO Assignment: move to class UserServices::Session /app/services/user_services/session.rb and add test coverage
-    Session.where(id: context[:session_id]).destroy_all
-    true
+    user = Session.find_by(id: context[:session_id]).user
+    return unless user
+    UserServices::Session.new(user).logout
   end
 
 end
