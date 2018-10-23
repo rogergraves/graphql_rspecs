@@ -15,7 +15,6 @@ class Types::MutationType < Types::BaseObject
   end
 
   def update_user(user:)
-    # TODO Assignment: move update action to class UserServices::Update /app/services/user_services/update.rb and add test coverage
     user_record = User.find_by(id: user[:id])
     return unless user_record
     UserServices::Update.new(user_record).update(user.to_h)
