@@ -20,9 +20,15 @@ describe Resolvers::User do
 
     describe '#address' do
 
-      it 'works by separating fields with commas'
+      it 'works by separating fields with commas' do
+        user.update(street: 'Pleasant Drive', number: 123, postcode: '84939', city: 'Pleasantville', country: 'Republic of California')
+        expect(resolver.address).to eq("Pleasant Drive, 123, 84939, Pleasantville, Republic of California")
+      end
 
-      it 'skips fields that are blank'
+      it 'skips fields that are blank' do
+        user.update(street: 'Pleasant Drive', number: nil, postcode: '84939', city: 'Pleasantville', country: nil)
+        expect(resolver.address).to eq("Pleasant Drive, 84939, Pleasantville")
+      end
 
     end
 
