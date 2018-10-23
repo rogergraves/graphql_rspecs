@@ -8,6 +8,9 @@ module UserServices
     end
 
     # Write unit tests for this class in /spec/services/user_services/session_spec.rb (preferably TDD style)
+    def login
+      user.sessions.create.key
+    end
 
   end
 end

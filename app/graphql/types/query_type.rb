@@ -31,7 +31,9 @@ class Types::QueryType < Types::BaseObject
 
   def login(email:, password:)
     # TODO Assignment: move to UserServices::Session /app/services/user_services/session.rb and add test coverage
-    User.where(email: email).first&.authenticate(password)&.sessions&.create&.key
+    user = User.find_by(where(email: email))
+    return unless user&.authenticate(password)
+    UserServices::Session.new(user).login
   end
 
   field :logout, Boolean, null: false, description: "Logout the current user"
