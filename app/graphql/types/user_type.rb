@@ -35,7 +35,7 @@ class Types::UserType < Types::BaseObject
   # We intentionally exclude any address component that is nil, empty or made only of whitespaces
   # and we join the rest using a comma.
   def address
-    Resolvers::User.new(object).address
+    Resolvers::User.new(user: object).address
   end
 
   field :posts, [Types::PostType], null: true, description: "A user's posts"

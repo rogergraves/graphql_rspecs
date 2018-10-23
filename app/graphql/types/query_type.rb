@@ -30,9 +30,9 @@ class Types::QueryType < Types::BaseObject
   end
 
   def login(email:, password:)
-    user = User.find_by(where(email: email))
+    user = User.find_by(email: email)
     return unless user&.authenticate(password)
-    UserServices::Session.new(user).login
+    UserServices::Session.new(user: user).login
   end
 
   field :logout, Boolean, null: false, description: "Logout the current user"
@@ -40,7 +40,7 @@ class Types::QueryType < Types::BaseObject
   def logout
     user = Session.find_by(id: context[:session_id]).user
     return unless user
-    UserServices::Session.new(user).logout
+    UserServices::Session.new(user: user).logout
   end
 
 end

@@ -17,7 +17,7 @@ class Types::MutationType < Types::BaseObject
   def update_user(user:)
     user_record = User.find_by(id: user[:id])
     return unless user_record
-    UserServices::Update.new(user_record).update(user.to_h)
+    UserServices::Update.new(user: user_record).update(user.to_h)
   end
 
   field :delete_user, Boolean, null: false, description: "Delete a user" do
